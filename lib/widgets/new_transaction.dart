@@ -24,6 +24,8 @@ class _NewTransactionState extends State<NewTransaction> {
       }
 
       widget.onAddHandler(enteredTitle, enteredAmount);
+
+      Navigator.of(context).pop();
     } catch (e) {
       return;
     }
