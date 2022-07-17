@@ -8,6 +8,21 @@ class NewTransaction extends StatelessWidget {
 
   NewTransaction({Key key, this.onAddHandler}) : super(key: key);
 
+  void submitData() {
+    try {
+      final enteredTitle = titleController.text;
+      final enteredAmount = double.parse(amountController.text);
+
+      if (enteredTitle.isEmpty || enteredAmount <= 0) {
+        return;
+      }
+
+      onAddHandler(enteredTitle, enteredAmount);
+    } catch (e) {
+      return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -22,23 +37,17 @@ class NewTransaction extends StatelessWidget {
               //   titleInput = value;
               // },
               controller: titleController,
+              onSubmitted: (_) => submitData(), // Triggered when green check on keyboard is pressed
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               // onChanged: (value) => amountInput = value,
               controller: amountController,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              onSubmitted: (_) => submitData(), // Triggered when green check on keyboard is pressed
             ),
             FlatButton(
-              onPressed: () {
-                // print(titleInput);
-                // print(amountInput);
-                print(titleController.text);
-                print(amountController.text);
-                onAddHandler(
-                  titleController.text,
-                  double.parse(amountController.text), // Ideally, add validation around this to make sure it's a valid double
-                );
-              },
+              onPressed: submitData,
               child: Text('Add Transaction'),
               textColor: Colors.purple,
             )
