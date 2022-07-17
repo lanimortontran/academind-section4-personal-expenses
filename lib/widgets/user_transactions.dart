@@ -25,11 +25,29 @@ class _UserTransactionsState extends State<UserTransactions> {
     ),
   ];
 
+  void _addNewTransaction(String txTitle, double txAmount) {
+    final newTx = Transaction(
+      id: DateTime.now().toString(), // Just for purposes of this app, this way of generating an id is fine
+      title: txTitle,
+      amount: txAmount,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      // This is a final variable, so the address of the object stored cannot be changed.
+      // However, the list that the object holds can be manipulated because it will not generate a new pointer.
+      // It is simply modifying the data that the object stores.
+      _userTransaction.add(newTx);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        NewTransaction(),
+        NewTransaction(
+          onAddHandler: _addNewTransaction,
+        ),
         TransactionList(_userTransaction),
       ],
     );
