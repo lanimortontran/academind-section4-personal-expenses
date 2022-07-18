@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/widgets/new_transaction.dart';
 
 import 'models/transaction.dart';
+import 'widgets/chart.dart';
 import 'widgets/transaction_list.dart';
 
 void main() => runApp(MyApp());
@@ -154,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: double.infinity,
               child: Card(
                 color: Colors.blue,
-                child: Text('CHART!'),
+                child: Chart(),
                 elevation: 5.0,
               ),
             ),
