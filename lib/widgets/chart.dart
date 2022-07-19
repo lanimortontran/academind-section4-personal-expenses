@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_complete_guide/models/transaction.dart';
+import 'package:flutter_complete_guide/widgets/chart_bar.dart';
 import 'package:intl/intl.dart';
 
 class Chart extends StatelessWidget {
@@ -36,6 +37,22 @@ class Chart extends StatelessWidget {
     });
   }
 
+  double get _totalWeeklySpending {
+    return groupedTransactionValues.fold(0.0, (sum, item) => sum + item['amount']);
+  }
+
+  double spendingPercentOfWeeklyTotal(amount) {
+    if (_totalWeeklySpending <= 0) {
+      return 0;
+    }
+
+    try {
+      return (amount as double) / _totalWeeklySpending;
+    } catch (e) {
+      return 0;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print(groupedTransactionValues);
@@ -44,8 +61,14 @@ class Chart extends StatelessWidget {
       elevation: 6.0,
       margin: EdgeInsets.all(20),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: groupedTransactionValues.map((data) {
-          return Text('${data['day']}: ${data['amount']}');
+          // return Text('${data['day']}: ${data['amount']}');
+          return ChartBar(
+            label: data['day'],
+            spendingAmount: data['amount'],
+            spendingPercentOfTotal: spendingPercentOfWeeklyTotal(data['amount']),
+          );
         }).toList(),
       ),
     );
