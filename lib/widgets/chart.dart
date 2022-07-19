@@ -60,16 +60,23 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 6.0,
       margin: EdgeInsets.all(20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: groupedTransactionValues.map((data) {
-          // return Text('${data['day']}: ${data['amount']}');
-          return ChartBar(
-            label: data['day'],
-            spendingAmount: data['amount'],
-            spendingPercentOfTotal: spendingPercentOfWeeklyTotal(data['amount']),
-          );
-        }).toList(),
+      // Alternative to using Container, if padding is the only setting being applied
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: groupedTransactionValues.map((data) {
+            // return Text('${data['day']}: ${data['amount']}');
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                label: data['day'],
+                spendingAmount: data['amount'],
+                spendingPercentOfTotal: spendingPercentOfWeeklyTotal(data['amount']),
+              ),
+            );
+          }).toList(),
+        ),
       ),
     );
   }
