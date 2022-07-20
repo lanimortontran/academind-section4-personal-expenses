@@ -34,7 +34,7 @@ class Chart extends StatelessWidget {
         'day': DateFormat.E().format(weekDay).substring(0, 3),
         'amount': totalSum,
       };
-    });
+    }).reversed.toList(); // Now transactions will be sorted oldest to newest, from left to right in the chart.
   }
 
   double get _totalWeeklySpending {

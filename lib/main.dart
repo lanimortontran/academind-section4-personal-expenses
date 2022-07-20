@@ -87,20 +87,20 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
     Transaction(
       id: 't8',
-      title: 'Snack',
-      amount: 1.07,
+      title: 'Camping Gear',
+      amount: 254.39,
       date: DateTime.now().subtract(Duration(days: 6)),
     ),
     Transaction(
       id: 't9',
-      title: 'Beer',
-      amount: 5.93,
+      title: 'Snack',
+      amount: 1.07,
       date: DateTime.now().subtract(Duration(days: 7)), // Should not show up in recent transactions
     ),
     Transaction(
       id: 't10',
-      title: 'Camping Gear',
-      amount: 254.39,
+      title: 'Beer',
+      amount: 5.93,
       date: DateTime.now().subtract(Duration(days: 8)), // Should not show up in recent transactions
     ),
   ];
