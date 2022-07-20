@@ -165,12 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Chart(
-                recentTransactions: _recentTransactions,
-              ),
-            ),
+            Chart(recentTransactions: _recentTransactions),
             TransactionList(_userTransaction, _deleteTransaction),
           ],
         ),
