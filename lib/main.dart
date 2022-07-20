@@ -29,6 +29,10 @@ class MyApp extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 fontSize: 16.0,
               ),
+              // labelSmall: TextStyle(color: Colors.white),
+            ),
+        buttonTheme: ThemeData.light().buttonTheme.copyWith(
+              textTheme: ButtonTextTheme.primary,
             ),
       ),
       home: MyHomePage(),
