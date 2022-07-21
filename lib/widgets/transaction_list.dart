@@ -12,7 +12,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 450,
+      height: MediaQuery.of(context).size.height * 0.6, // Dynamically calculate height of this widget to take up 60% of screen (does not exclude appBar, so need to subtract that)
       child: _transactions.isEmpty
           ? Column(
               children: <Widget>[
