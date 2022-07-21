@@ -57,28 +57,25 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     print(groupedTransactionValues);
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.4, // Dynamically calculate height of this widget to take up 40% of screen (does not exclude appBar, so need to subtract that)
-      child: Card(
-        elevation: 6.0,
-        margin: EdgeInsets.all(20),
-        // Alternative to using Container, if padding is the only setting being applied
-        child: Padding(
-          padding: EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: groupedTransactionValues.map((data) {
-              // return Text('${data['day']}: ${data['amount']}');
-              return Flexible(
-                fit: FlexFit.tight,
-                child: ChartBar(
-                  label: data['day'],
-                  spendingAmount: data['amount'],
-                  spendingPercentOfTotal: spendingPercentOfWeeklyTotal(data['amount']),
-                ),
-              );
-            }).toList(),
-          ),
+    return Card(
+      elevation: 6.0,
+      margin: EdgeInsets.all(20),
+      // Alternative to using Container, if padding is the only setting being applied
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: groupedTransactionValues.map((data) {
+            // return Text('${data['day']}: ${data['amount']}');
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                label: data['day'],
+                spendingAmount: data['amount'],
+                spendingPercentOfTotal: spendingPercentOfWeeklyTotal(data['amount']),
+              ),
+            );
+          }).toList(),
         ),
       ),
     );
