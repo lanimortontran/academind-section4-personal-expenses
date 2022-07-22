@@ -160,6 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final bool _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+
     final appBar = AppBar(
       title: Text('Personal Expenses'),
       actions: <Widget>[
@@ -170,6 +172,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
+    final txListWidget = Container(
+      // Calculate full height - appBar - status bar, then take up % of available space
+      height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
+      child: TransactionList(_userTransaction, _deleteTransaction),
+    );
+
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
@@ -177,31 +185,36 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('Show Chart'),
-                Switch(
-                  value: _showChart,
-                  onChanged: (switchVal) {
-                    setState(() {
-                      _showChart = switchVal;
-                    });
-                  },
-                ),
-              ],
-            ),
-            _showChart
-                ? Container(
-                    // Calculate full height - appBar - status bar, then take up % of available space
-                    height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
-                    child: Chart(recentTransactions: _recentTransactions),
-                  )
-                : Container(
-                    // Calculate full height - appBar - status bar, then take up % of available space
-                    height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
-                    child: TransactionList(_userTransaction, _deleteTransaction),
+            if (_isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Show Chart'),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (switchVal) {
+                      setState(() {
+                        _showChart = switchVal;
+                      });
+                    },
                   ),
+                ],
+              ),
+            if (!_isLandscape)
+              Container(
+                // Calculate full height - appBar - status bar, then take up % of available space
+                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3,
+                child: Chart(recentTransactions: _recentTransactions),
+              ),
+            if (!_isLandscape) txListWidget,
+            if (_isLandscape)
+              _showChart
+                  ? Container(
+                      // Calculate full height - appBar - status bar, then take up % of available space
+                      height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
+                      child: Chart(recentTransactions: _recentTransactions),
+                    )
+                  : txListWidget,
           ],
         ),
       ),
