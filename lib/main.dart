@@ -5,7 +5,15 @@ import 'widgets/chart.dart';
 import 'widgets/new_transaction.dart';
 import 'widgets/transaction_list.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  // Control device orientation
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -109,6 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
+  bool _showChart = false;
+
   List<Transaction> get _recentTransactions {
     return _userTransaction.where((tx) => tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)))).toList();
   }
@@ -167,16 +177,31 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              // Calculate full height - appBar - status bar, then take up % of available space
-              height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3,
-              child: Chart(recentTransactions: _recentTransactions),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text('Show Chart'),
+                Switch(
+                  value: _showChart,
+                  onChanged: (switchVal) {
+                    setState(() {
+                      _showChart = switchVal;
+                    });
+                  },
+                ),
+              ],
             ),
-            Container(
-              // Calculate full height - appBar - status bar, then take up % of available space
-              height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
-              child: TransactionList(_userTransaction, _deleteTransaction),
-            ),
+            _showChart
+                ? Container(
+                    // Calculate full height - appBar - status bar, then take up % of available space
+                    height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3,
+                    child: Chart(recentTransactions: _recentTransactions),
+                  )
+                : Container(
+                    // Calculate full height - appBar - status bar, then take up % of available space
+                    height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
+                    child: TransactionList(_userTransaction, _deleteTransaction),
+                  ),
           ],
         ),
       ),
