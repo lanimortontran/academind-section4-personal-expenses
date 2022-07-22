@@ -55,66 +55,66 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransaction = [
-    Transaction(
-      id: 't1',
-      title: 'New Shoes',
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Weekly Groceries',
-      amount: 16.53,
-      date: DateTime.now().subtract(Duration(days: 1)),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'New Hat',
-      amount: 12,
-      date: DateTime.now().subtract(Duration(days: 2)),
-    ),
-    Transaction(
-      id: 't4',
-      title: 'New Sunglasses',
-      amount: 15.0,
-      date: DateTime.now().subtract(Duration(days: 2)),
-    ),
-    Transaction(
-      id: 't5',
-      title: 'Gym Fees',
-      amount: 75.43,
-      date: DateTime.now().subtract(Duration(days: 3)),
-    ),
-    Transaction(
-      id: 't6',
-      title: 'Festival Tickets',
-      amount: 107.09,
-      date: DateTime.now().subtract(Duration(days: 4)),
-    ),
-    Transaction(
-      id: 't7',
-      title: 'Pet Food',
-      amount: 33.89,
-      date: DateTime.now().subtract(Duration(days: 5)),
-    ),
-    Transaction(
-      id: 't8',
-      title: 'Camping Gear',
-      amount: 254.39,
-      date: DateTime.now().subtract(Duration(days: 6)),
-    ),
-    Transaction(
-      id: 't9',
-      title: 'Snack',
-      amount: 1.07,
-      date: DateTime.now().subtract(Duration(days: 7)), // Should not show up in recent transactions
-    ),
-    Transaction(
-      id: 't10',
-      title: 'Beer',
-      amount: 5.93,
-      date: DateTime.now().subtract(Duration(days: 8)), // Should not show up in recent transactions
-    ),
+    // Transaction(
+    //   id: 't1',
+    //   title: 'New Shoes',
+    //   amount: 69.99,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 't2',
+    //   title: 'Weekly Groceries',
+    //   amount: 16.53,
+    //   date: DateTime.now().subtract(Duration(days: 1)),
+    // ),
+    // Transaction(
+    //   id: 't3',
+    //   title: 'New Hat',
+    //   amount: 12,
+    //   date: DateTime.now().subtract(Duration(days: 2)),
+    // ),
+    // Transaction(
+    //   id: 't4',
+    //   title: 'New Sunglasses',
+    //   amount: 15.0,
+    //   date: DateTime.now().subtract(Duration(days: 2)),
+    // ),
+    // Transaction(
+    //   id: 't5',
+    //   title: 'Gym Fees',
+    //   amount: 75.43,
+    //   date: DateTime.now().subtract(Duration(days: 3)),
+    // ),
+    // Transaction(
+    //   id: 't6',
+    //   title: 'Festival Tickets',
+    //   amount: 107.09,
+    //   date: DateTime.now().subtract(Duration(days: 4)),
+    // ),
+    // Transaction(
+    //   id: 't7',
+    //   title: 'Pet Food',
+    //   amount: 33.89,
+    //   date: DateTime.now().subtract(Duration(days: 5)),
+    // ),
+    // Transaction(
+    //   id: 't8',
+    //   title: 'Camping Gear',
+    //   amount: 254.39,
+    //   date: DateTime.now().subtract(Duration(days: 6)),
+    // ),
+    // Transaction(
+    //   id: 't9',
+    //   title: 'Snack',
+    //   amount: 1.07,
+    //   date: DateTime.now().subtract(Duration(days: 7)), // Should not show up in recent transactions
+    // ),
+    // Transaction(
+    //   id: 't10',
+    //   title: 'Beer',
+    //   amount: 5.93,
+    //   date: DateTime.now().subtract(Duration(days: 8)), // Should not show up in recent transactions
+    // ),
   ];
 
   bool _showChart = false;
@@ -194,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
             _showChart
                 ? Container(
                     // Calculate full height - appBar - status bar, then take up % of available space
-                    height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3,
+                    height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
                     child: Chart(recentTransactions: _recentTransactions),
                   )
                 : Container(
