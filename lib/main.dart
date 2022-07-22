@@ -197,43 +197,45 @@ class _MyHomePageState extends State<MyHomePage> {
       child: TransactionList(_userTransaction, _deleteTransaction),
     );
 
-    final SingleChildScrollView _pageBody = SingleChildScrollView(
-      child: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          if (_isLandscape)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('Show Chart'),
-                Switch.adaptive(
-                  activeColor: Theme.of(context).accentColor,
-                  value: _showChart,
-                  onChanged: (switchVal) {
-                    setState(() {
-                      _showChart = switchVal;
-                    });
-                  },
-                ),
-              ],
-            ),
-          if (!_isLandscape)
-            Container(
-              // Calculate full height - appBar - status bar, then take up % of available space
-              height: (_mediaQuery.size.height - _appBar.preferredSize.height - _mediaQuery.padding.top) * 0.3,
-              child: Chart(recentTransactions: _recentTransactions),
-            ),
-          if (!_isLandscape) txListWidget,
-          if (_isLandscape)
-            _showChart
-                ? Container(
-                    // Calculate full height - appBar - status bar, then take up % of available space
-                    height: (_mediaQuery.size.height - _appBar.preferredSize.height - _mediaQuery.padding.top) * 0.7,
-                    child: Chart(recentTransactions: _recentTransactions),
-                  )
-                : txListWidget,
-        ],
+    final SafeArea _pageBody = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            if (_isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Show Chart'),
+                  Switch.adaptive(
+                    activeColor: Theme.of(context).accentColor,
+                    value: _showChart,
+                    onChanged: (switchVal) {
+                      setState(() {
+                        _showChart = switchVal;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            if (!_isLandscape)
+              Container(
+                // Calculate full height - appBar - status bar, then take up % of available space
+                height: (_mediaQuery.size.height - _appBar.preferredSize.height - _mediaQuery.padding.top) * 0.3,
+                child: Chart(recentTransactions: _recentTransactions),
+              ),
+            if (!_isLandscape) txListWidget,
+            if (_isLandscape)
+              _showChart
+                  ? Container(
+                      // Calculate full height - appBar - status bar, then take up % of available space
+                      height: (_mediaQuery.size.height - _appBar.preferredSize.height - _mediaQuery.padding.top) * 0.7,
+                      child: Chart(recentTransactions: _recentTransactions),
+                    )
+                  : txListWidget,
+          ],
+        ),
       ),
     );
 
