@@ -160,7 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final bool _isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    MediaQueryData _mediaQuery = MediaQuery.of(context);
+    final bool _isLandscape = _mediaQuery.orientation == Orientation.landscape;
 
     final appBar = AppBar(
       title: Text('Personal Expenses'),
@@ -174,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final txListWidget = Container(
       // Calculate full height - appBar - status bar, then take up % of available space
-      height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
+      height: (_mediaQuery.size.height - appBar.preferredSize.height - _mediaQuery.padding.top) * 0.7,
       child: TransactionList(_userTransaction, _deleteTransaction),
     );
 
@@ -203,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
             if (!_isLandscape)
               Container(
                 // Calculate full height - appBar - status bar, then take up % of available space
-                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3,
+                height: (_mediaQuery.size.height - appBar.preferredSize.height - _mediaQuery.padding.top) * 0.3,
                 child: Chart(recentTransactions: _recentTransactions),
               ),
             if (!_isLandscape) txListWidget,
@@ -211,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
               _showChart
                   ? Container(
                       // Calculate full height - appBar - status bar, then take up % of available space
-                      height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7,
+                      height: (_mediaQuery.size.height - appBar.preferredSize.height - _mediaQuery.padding.top) * 0.7,
                       child: Chart(recentTransactions: _recentTransactions),
                     )
                   : txListWidget,
