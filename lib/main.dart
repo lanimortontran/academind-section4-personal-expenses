@@ -166,6 +166,47 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildLandscapeContent(MediaQueryData mediaQuery, PreferredSizeWidget appBar, Widget txListWidget) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Show Chart',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          Switch.adaptive(
+            activeColor: Theme.of(context).accentColor,
+            value: _showChart,
+            onChanged: (switchVal) {
+              setState(() {
+                _showChart = switchVal;
+              });
+            },
+          ),
+        ],
+      ),
+      _showChart
+          ? Container(
+              // Calculate full height - appBar - status bar, then take up % of available space
+              height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.7,
+              child: Chart(recentTransactions: _recentTransactions),
+            )
+          : txListWidget,
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(MediaQueryData mediaQuery, PreferredSizeWidget appBar, Widget txListWidget) {
+    return [
+      Container(
+        // Calculate full height - appBar - status bar, then take up % of available space
+        height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top) * 0.3,
+        child: Chart(recentTransactions: _recentTransactions),
+      ),
+      txListWidget
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData _mediaQuery = MediaQuery.of(context);
@@ -208,40 +249,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (_isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Show Chart',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  Switch.adaptive(
-                    activeColor: Theme.of(context).accentColor,
-                    value: _showChart,
-                    onChanged: (switchVal) {
-                      setState(() {
-                        _showChart = switchVal;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            if (!_isLandscape)
-              Container(
-                // Calculate full height - appBar - status bar, then take up % of available space
-                height: (_mediaQuery.size.height - _appBar.preferredSize.height - _mediaQuery.padding.top) * 0.3,
-                child: Chart(recentTransactions: _recentTransactions),
-              ),
-            if (!_isLandscape) txListWidget,
-            if (_isLandscape)
-              _showChart
-                  ? Container(
-                      // Calculate full height - appBar - status bar, then take up % of available space
-                      height: (_mediaQuery.size.height - _appBar.preferredSize.height - _mediaQuery.padding.top) * 0.7,
-                      child: Chart(recentTransactions: _recentTransactions),
-                    )
-                  : txListWidget,
+            // Spread operator (...) and null-aware spread operator (...?) combines 2+ lists and extends the collection's <T> elements as a list
+            // https://github.com/dart-lang/language/blob/master/accepted/2.3/unified-collections/feature-specification.md
+            // var list = [1, 2, 3];
+            // var list2 = [0, ...list]
+            if (_isLandscape) ..._buildLandscapeContent(_mediaQuery, _appBar, txListWidget),
+            if (!_isLandscape) ..._buildPortraitContent(_mediaQuery, _appBar, txListWidget),
           ],
         ),
       ),
